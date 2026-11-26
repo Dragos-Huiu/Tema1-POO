@@ -27,4 +27,8 @@ public final class DailyDocument {
     public MarketPoint get(final int intervalIndex) {
         return points[intervalIndex - 1];
     }
+
+    public void clear(final int intervalIndex) {
+        points[intervalIndex - 1] = null;
+    }
 }

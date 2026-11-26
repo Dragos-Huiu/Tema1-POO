@@ -33,6 +33,13 @@ public final class MarketDataRepository {
         document.put(point);
     }
 
+    public void remove(final DataType type, final TimeSlot slot) {
+        DailyDocument document = documents.get(type).get(slot.getDate());
+        if (document != null) {
+            document.clear(slot.getIndex());
+        }
+    }
+
     public MarketPoint findPoint(final DataType type, final TimeSlot slot) {
         DailyDocument document = documents.get(type).get(slot.getDate());
         if (document == null) {

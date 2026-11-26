@@ -3,7 +3,10 @@ package main;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import engine.EnergexPlatform;
+import fileio.CommandInput;
 import fileio.InputLoader;
+import response.Response;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,23 +33,13 @@ public final class Main {
         InputLoader inputLoader = new InputLoader(inputPath);
         ArrayNode output = MAPPER.createArrayNode();
 
-        /*
-         * TODO Implement your function here
-         *
-         * How to add output to the output array?
-         * There are multiple ways to do this, here is one example:
-         *
-         *
-         * ObjectNode objectNode = MAPPER.createObjectNode();
-         * objectNode.put("field_name", "field_value");
-         *
-         * ArrayNode arrayNode = MAPPER.createArrayNode();
-         * arrayNode.add(objectNode);
-         *
-         * output.add(arrayNode);
-         * output.add(objectNode);
-         *
-         */
+        EnergexPlatform platform = new EnergexPlatform();
+        for (CommandInput input : inputLoader.getCommands()) {
+            platform.process(input);
+        }
+        for (Response response : platform.getResponses()) {
+            output.add(response.toJson(MAPPER));
+        }
 
         File outputFile = new File(outputPath);
         outputFile.getParentFile().mkdirs();
