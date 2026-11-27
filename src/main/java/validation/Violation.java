@@ -19,12 +19,12 @@ public enum Violation {
         this.template = template;
     }
 
-    public String describe(final String field, final double value) {
+    String describe(final String field, final double value) {
         String message = template.replace("FIELD", field);
         return message.replace("VALUE", String.valueOf(value));
     }
 
-    public String describe(final String field) {
+    String describe(final String field) {
         return template.replace("FIELD", field);
     }
 }

@@ -13,11 +13,7 @@ public enum CommandType {
         this.commandName = commandName;
     }
 
-    public String getCommandName() {
-        return commandName;
-    }
-
-    public static CommandType fromName(final String name) {
+    static CommandType fromName(final String name) {
         for (CommandType type : values()) {
             if (type.commandName.equals(name)) {
                 return type;
